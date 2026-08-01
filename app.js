@@ -486,7 +486,7 @@ function renderLinks(profile, listKey) {
 /**
  * Smooth transition to Ongoing Programs view
  */
-function switchToProgramsView() {
+function switchToProgramsView(pushHistory = true) {
   const linksContainer = document.getElementById('links-container');
   if (!linksContainer) return;
 
@@ -496,13 +496,17 @@ function switchToProgramsView() {
     const profile = getProfileData();
     renderLinks(profile, 'programLinks');
     linksContainer.classList.remove('fade-out');
+    
+    if (pushHistory) {
+      history.pushState({ view: 'programs' }, '', '#programs');
+    }
   }, 180);
 }
 
 /**
  * Smooth transition back to Main links view
  */
-function switchToMainView() {
+function switchToMainView(popHistory = true) {
   const linksContainer = document.getElementById('links-container');
   if (!linksContainer) return;
 
@@ -512,6 +516,10 @@ function switchToMainView() {
     const profile = getProfileData();
     renderLinks(profile, 'links');
     linksContainer.classList.remove('fade-out');
+    
+    if (popHistory && window.location.hash === '#programs') {
+      history.back();
+    }
   }, 180);
 }
 
@@ -522,8 +530,17 @@ document.addEventListener('click', (e) => {
     const clickedSettings = e.target.closest('#settings-btn') || e.target.closest('.modal-box') || e.target.closest('#theme-toggle');
     
     if (!clickedProgramLink && !clickedSettings) {
-      switchToMainView();
+      switchToMainView(true); // Pops the history back
     }
+  }
+});
+
+// Intercept browser/smartphone hardware back button
+window.addEventListener('popstate', () => {
+  if (showingPrograms && window.location.hash !== '#programs') {
+    switchToMainView(false); // Go to main view but do not call history.back()
+  } else if (!showingPrograms && window.location.hash === '#programs') {
+    switchToProgramsView(false); // Go to programs view but do not push new state
   }
 });
 
