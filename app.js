@@ -92,15 +92,18 @@ const DEFAULT_PROFILE = {
   links: [
     {
       title: "번아웃 리부트 & 독립출판 프로젝트",
-      url: "https://incacenter.knu.ac.kr/"
+      url: "https://incacenter.knu.ac.kr/",
+      description: "치유 글쓰기와 독립 출판을 통한 마음 재시동 프로젝트"
     },
     {
       title: "고전으로 풀어내는 힐링 수다",
-      url: "https://incacenter.knu.ac.kr/"
+      url: "https://incacenter.knu.ac.kr/",
+      description: "동서양의 고전을 함께 읽고 지혜를 나누는 치유 대화"
     },
     {
       title: "수요일 밤, 낭독으로 지혜를 사유하다",
-      url: "https://incacenter.knu.ac.kr/"
+      url: "https://incacenter.knu.ac.kr/",
+      description: "매주 수요일 밤, 낭독을 통해 마음을 성찰하는 낭독 모임"
     }
   ],
   socialLinks: {
@@ -113,25 +116,39 @@ const DEFAULT_PROFILE = {
 // SVG Icon templates based on keywords
 const SVG_ICONS = {
   github: `<svg class="link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>`,
-  blog: `<svg class="link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>`,
-  monitor: `<svg class="link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>`,
+  book: `<svg class="link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>`,
+  heart: `<svg class="link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>`,
+  moon: `<svg class="link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>`,
+  pen: `<svg class="link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>`,
   mail: `<svg class="link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>`,
   globe: `<svg class="link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>`
 };
 
 /**
- * Detect suitable icon based on URL
+ * Detect suitable icon based on URL and title keywords
  */
-function getIconForUrl(url) {
+function getIconForLink(title, url) {
+  const cleanTitle = title.toLowerCase().trim();
   const cleanUrl = url.toLowerCase().trim();
+
+  // Keyword check for Humanities/Counseling elements
+  if (cleanTitle.includes('독립출판') || cleanTitle.includes('출판') || cleanTitle.includes('쓰기') || cleanTitle.includes('프로젝트') || cleanTitle.includes('pen') || cleanTitle.includes('펜')) {
+    return SVG_ICONS.pen;
+  } else if (cleanTitle.includes('힐링') || cleanTitle.includes('수다') || cleanTitle.includes('상담') || cleanTitle.includes('마음') || cleanTitle.includes('치유') || cleanTitle.includes('heart') || cleanTitle.includes('하트')) {
+    return SVG_ICONS.heart;
+  } else if (cleanTitle.includes('밤') || cleanTitle.includes('낭독') || cleanTitle.includes('지혜') || cleanTitle.includes('사유') || cleanTitle.includes('moon') || cleanTitle.includes('달')) {
+    return SVG_ICONS.moon;
+  } else if (cleanTitle.includes('고전') || cleanTitle.includes('책') || cleanTitle.includes('도서') || cleanTitle.includes('book') || cleanTitle.includes('독서')) {
+    return SVG_ICONS.book;
+  }
+
+  // Fallbacks based on URL
   if (cleanUrl.includes('github.com')) {
     return SVG_ICONS.github;
   } else if (cleanUrl.includes('blog') || cleanUrl.includes('tistory') || cleanUrl.includes('velog') || cleanUrl.includes('naver.com')) {
-    return SVG_ICONS.blog;
+    return SVG_ICONS.book;
   } else if (cleanUrl.startsWith('mailto:') || cleanUrl.includes('@')) {
     return SVG_ICONS.mail;
-  } else if (cleanUrl.includes('portfolio') || cleanUrl.includes('dev') || cleanUrl.includes('design') || cleanUrl.includes('incacenter')) {
-    return SVG_ICONS.monitor;
   } else {
     return SVG_ICONS.globe;
   }
@@ -223,8 +240,9 @@ function initProfilePage() {
       linkCards.forEach(card => {
         const title = card.querySelector('.edit-link-title').value.trim();
         const url = card.querySelector('.edit-link-url').value.trim();
+        const description = card.querySelector('.edit-link-description').value.trim();
         if (title && url) {
-          updatedLinks.push({ title, url });
+          updatedLinks.push({ title, url, description });
         }
       });
 
@@ -277,8 +295,9 @@ function initProfilePage() {
     linkCards.forEach(card => {
       const title = card.querySelector('.edit-link-title').value.trim();
       const url = card.querySelector('.edit-link-url').value.trim();
+      const description = card.querySelector('.edit-link-description').value.trim();
       if (title && url) {
-        updatedLinks.push({ title, url });
+        updatedLinks.push({ title, url, description });
       }
     });
 
@@ -312,7 +331,7 @@ function initProfilePage() {
  * Get profile data from localStorage or save default
  */
 function getProfileData() {
-  const data = localStorage.getItem('profileData_v10');
+  const data = localStorage.getItem('profileData_v11');
   if (data) {
     try {
       return JSON.parse(data);
@@ -328,7 +347,7 @@ function getProfileData() {
  * Save profile data to localStorage
  */
 function saveProfileData(profile) {
-  localStorage.setItem('profileData_v10', JSON.stringify(profile));
+  localStorage.setItem('profileData_v11', JSON.stringify(profile));
 }
 
 /**
@@ -376,7 +395,7 @@ function renderProfile(profile) {
 }
 
 /**
- * Helper to render main links or program links with intercepting logic
+ * Helper to render main links with dynamic icons and optional descriptions
  */
 function renderLinks(profile, listKey) {
   const linksContainer = document.getElementById('links-container');
@@ -394,14 +413,20 @@ function renderLinks(profile, listKey) {
     linkAnchor.className = 'link-item';
     linkAnchor.id = `link-dynamic-${listKey}-${index}`;
     
-    // Automatically match appropriate SVG icon
-    const iconSvg = getIconForUrl(link.url);
+    // Automatically match appropriate SVG icon based on title keywords
+    const iconSvg = getIconForLink(link.title, link.url);
+    const descriptionHtml = link.description 
+      ? `<span class="link-description">${escapeHtml(link.description)}</span>` 
+      : '';
 
     linkAnchor.innerHTML = `
       <div class="link-icon-bg">
         ${iconSvg}
       </div>
-      <span class="link-title">${escapeHtml(link.title)}</span>
+      <div class="link-info-container">
+        <span class="link-title">${escapeHtml(link.title)}</span>
+        ${descriptionHtml}
+      </div>
       <svg class="chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <polyline points="9 18 15 12 9 6"></polyline>
       </svg>
@@ -440,21 +465,27 @@ function loadEditorForm(profile) {
 }
 
 /**
- * Append editing card for link items
+ * Append editing card for link items with title, description, and URL
  */
 function appendLinkEditCard(container, link) {
   const card = document.createElement('div');
   card.className = 'link-edit-card';
   
+  const linkDesc = link.description || '';
+  
   card.innerHTML = `
     <button type="button" class="btn-remove-link" aria-label="링크 삭제">&times;</button>
     <div class="form-group" style="margin-bottom: 8px;">
       <label class="form-label" style="font-size: 11px;">링크 이름</label>
-      <input type="text" class="form-input edit-link-title" value="${escapeHtml(link.title)}" placeholder="예: GitHub" required>
+      <input type="text" class="form-input edit-link-title" value="${escapeHtml(link.title)}" placeholder="예: 번아웃 리부트" required>
+    </div>
+    <div class="form-group" style="margin-bottom: 8px;">
+      <label class="form-label" style="font-size: 11px;">링크 설명 (부제목)</label>
+      <input type="text" class="form-input edit-link-description" value="${escapeHtml(linkDesc)}" placeholder="예: 프로그램 설명 적기">
     </div>
     <div class="form-group" style="margin-bottom: 0;">
       <label class="form-label" style="font-size: 11px;">연결 주소 (URL)</label>
-      <input type="text" class="form-input edit-link-url" value="${escapeHtml(link.url)}" placeholder="예: https://github.com/..." required>
+      <input type="text" class="form-input edit-link-url" value="${escapeHtml(link.url)}" placeholder="예: https://..." required>
     </div>
   `;
 

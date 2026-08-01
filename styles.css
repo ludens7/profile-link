@@ -579,10 +579,25 @@ html, body {
   transition: color var(--transition-slow);
 }
 
-.link-title {
+.link-info-container {
   grid-column: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-align: left;
+}
+
+.link-title {
   font-size: 16px;
   font-weight: 600;
+}
+
+.link-description {
+  font-size: 12.5px;
+  font-weight: 400;
+  color: var(--text-muted);
+  line-height: 1.4;
+  transition: color var(--transition-slow);
 }
 
 .chevron-icon {
