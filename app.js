@@ -91,8 +91,16 @@ const DEFAULT_PROFILE = {
   password: "6122",
   links: [
     {
-      title: "진행중인 프로그램",
-      url: "#programs"
+      title: "번아웃 리부트 & 독립출판 프로젝트",
+      url: "https://incacenter.knu.ac.kr/"
+    },
+    {
+      title: "고전으로 풀어내는 힐링 수다",
+      url: "https://incacenter.knu.ac.kr/"
+    },
+    {
+      title: "수요일 밤, 낭독으로 지혜를 사유하다",
+      url: "https://incacenter.knu.ac.kr/"
     },
     {
       title: "센터가 궁금하다면? 홈페이지로",
@@ -107,29 +115,12 @@ const DEFAULT_PROFILE = {
       url: "https://instagram.com/knu_hcc"
     }
   ],
-  programLinks: [
-    {
-      title: "번아웃 리부트 & 독립출판 프로젝트",
-      url: "https://incacenter.knu.ac.kr/"
-    },
-    {
-      title: "고전으로 풀어내는 힐링 수다",
-      url: "https://incacenter.knu.ac.kr/"
-    },
-    {
-      title: "수요일 밤, 낭독으로 지혜를 사유하다",
-      url: "https://incacenter.knu.ac.kr/"
-    }
-  ],
   socialLinks: {
     instagram: "https://instagram.com/knu_hcc",
     homepage: "https://incacenter.knu.ac.kr/",
     kakaotalk: "http://pf.kakao.com/_vdxjZG/chat"
   }
 };
-
-// Global state tracking ongoing program link toggle
-let showingPrograms = false;
 
 // SVG Icon templates based on keywords
 const SVG_ICONS = {
@@ -229,18 +220,9 @@ function initProfilePage() {
   });
 
   // Dynamic Link Management inside Settings Panel
-  const addProgramLinkBtn = document.getElementById('add-program-link-btn');
-  const editorProgramLinksList = document.getElementById('editor-program-links-list');
-
   addLinkBtn.addEventListener('click', () => {
     appendLinkEditCard(editorLinksList, { title: '', url: '' });
   });
-
-  if (addProgramLinkBtn && editorProgramLinksList) {
-    addProgramLinkBtn.addEventListener('click', () => {
-      appendLinkEditCard(editorProgramLinksList, { title: '', url: '' });
-    });
-  }
 
   // Export current settings to clipboard for source code default
   const exportJsonBtn = document.getElementById('export-json-btn');
@@ -258,16 +240,6 @@ function initProfilePage() {
         }
       });
 
-      const progLinkCards = editorProgramLinksList.querySelectorAll('.link-edit-card');
-      const updatedProgLinks = [];
-      progLinkCards.forEach(card => {
-        const title = card.querySelector('.edit-link-title').value.trim();
-        const url = card.querySelector('.edit-link-url').value.trim();
-        if (title && url) {
-          updatedProgLinks.push({ title, url });
-        }
-      });
-
       const exportData = {
         name: document.getElementById('edit-name').value.trim(),
         tagline: document.getElementById('edit-tagline').value.trim(),
@@ -275,7 +247,6 @@ function initProfilePage() {
         theme: document.getElementById('edit-theme').value,
         password: activeProfile.password,
         links: updatedLinks,
-        programLinks: updatedProgLinks,
         socialLinks: {
           instagram: document.getElementById('edit-instagram').value.trim(),
           homepage: document.getElementById('edit-homepage').value.trim(),
@@ -312,7 +283,7 @@ function initProfilePage() {
 
     passChangeError.classList.remove('show');
 
-    // Collect all main links from editor cards
+    // Collect all links from editor cards
     const linkCards = editorLinksList.querySelectorAll('.link-edit-card');
     const updatedLinks = [];
     linkCards.forEach(card => {
@@ -320,17 +291,6 @@ function initProfilePage() {
       const url = card.querySelector('.edit-link-url').value.trim();
       if (title && url) {
         updatedLinks.push({ title, url });
-      }
-    });
-
-    // Collect all program links from editor cards
-    const progLinkCards = editorProgramLinksList.querySelectorAll('.link-edit-card');
-    const updatedProgLinks = [];
-    progLinkCards.forEach(card => {
-      const title = card.querySelector('.edit-link-title').value.trim();
-      const url = card.querySelector('.edit-link-url').value.trim();
-      if (title && url) {
-        updatedProgLinks.push({ title, url });
       }
     });
 
@@ -343,7 +303,6 @@ function initProfilePage() {
       theme: document.getElementById('edit-theme').value,
       password: newPass ? newPass : activeProfile.password,
       links: updatedLinks,
-      programLinks: updatedProgLinks,
       socialLinks: {
         instagram: document.getElementById('edit-instagram').value.trim(),
         homepage: document.getElementById('edit-homepage').value.trim(),
@@ -365,7 +324,7 @@ function initProfilePage() {
  * Get profile data from localStorage or save default
  */
 function getProfileData() {
-  const data = localStorage.getItem('profileData_v8');
+  const data = localStorage.getItem('profileData_v9');
   if (data) {
     try {
       return JSON.parse(data);
@@ -381,7 +340,7 @@ function getProfileData() {
  * Save profile data to localStorage
  */
 function saveProfileData(profile) {
-  localStorage.setItem('profileData_v8', JSON.stringify(profile));
+  localStorage.setItem('profileData_v9', JSON.stringify(profile));
 }
 
 /**
@@ -392,12 +351,8 @@ function renderProfile(profile) {
   document.getElementById('profile-tagline').textContent = profile.tagline;
   document.getElementById('profile-description').textContent = profile.description;
 
-  // Render the links dynamically based on the active view state
-  if (showingPrograms) {
-    renderLinks(profile, 'programLinks');
-  } else {
-    renderLinks(profile, 'links');
-  }
+  // Render all links directly on the first screen
+  renderLinks(profile, 'links');
 
   // Render Footer Social Links dynamically
   const instaElem = document.getElementById('social-instagram');
@@ -447,13 +402,8 @@ function renderLinks(profile, listKey) {
   list.forEach((link, index) => {
     const linkAnchor = document.createElement('a');
     linkAnchor.href = link.url;
-    
-    // Open in the same window so smartphone Back button returns to the first screen
-    if (link.url !== '#programs') {
-      linkAnchor.rel = 'noopener noreferrer';
-    }
-    
-    linkAnchor.className = listKey === 'programLinks' ? 'link-item program-link-item' : 'link-item';
+    linkAnchor.rel = 'noopener noreferrer';
+    linkAnchor.className = 'link-item';
     linkAnchor.id = `link-dynamic-${listKey}-${index}`;
     
     // Automatically match appropriate SVG icon
@@ -469,79 +419,9 @@ function renderLinks(profile, listKey) {
       </svg>
     `;
 
-    // Intercept click if it is the ongoing programs link
-    if (link.url === '#programs') {
-      linkAnchor.addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation(); // Avoid triggering global close click handler instantly
-        switchToProgramsView();
-      });
-    }
-
     linksContainer.appendChild(linkAnchor);
   });
 }
-
-/**
- * Smooth transition to Ongoing Programs view
- */
-function switchToProgramsView(pushHistory = true) {
-  const linksContainer = document.getElementById('links-container');
-  if (!linksContainer) return;
-
-  linksContainer.classList.add('fade-out');
-  setTimeout(() => {
-    showingPrograms = true;
-    const profile = getProfileData();
-    renderLinks(profile, 'programLinks');
-    linksContainer.classList.remove('fade-out');
-    
-    if (pushHistory) {
-      history.pushState({ view: 'programs' }, '', '#programs');
-    }
-  }, 180);
-}
-
-/**
- * Smooth transition back to Main links view
- */
-function switchToMainView(popHistory = true) {
-  const linksContainer = document.getElementById('links-container');
-  if (!linksContainer) return;
-
-  linksContainer.classList.add('fade-out');
-  setTimeout(() => {
-    showingPrograms = false;
-    const profile = getProfileData();
-    renderLinks(profile, 'links');
-    linksContainer.classList.remove('fade-out');
-    
-    if (popHistory && window.location.hash === '#programs') {
-      history.back();
-    }
-  }, 180);
-}
-
-// Global click event to close program view when clicking outside
-document.addEventListener('click', (e) => {
-  if (showingPrograms) {
-    const clickedProgramLink = e.target.closest('.program-link-item');
-    const clickedSettings = e.target.closest('#settings-btn') || e.target.closest('.modal-box') || e.target.closest('#theme-toggle');
-    
-    if (!clickedProgramLink && !clickedSettings) {
-      switchToMainView(true); // Pops the history back
-    }
-  }
-});
-
-// Intercept browser/smartphone hardware back button
-window.addEventListener('popstate', () => {
-  if (showingPrograms && window.location.hash !== '#programs') {
-    switchToMainView(false); // Go to main view but do not call history.back()
-  } else if (!showingPrograms && window.location.hash === '#programs') {
-    switchToProgramsView(false); // Go to programs view but do not push new state
-  }
-});
 
 /**
  * Load settings editor values
@@ -569,15 +449,6 @@ function loadEditorForm(profile) {
   profile.links.forEach(link => {
     appendLinkEditCard(editorLinksList, link);
   });
-
-  const editorProgramLinksList = document.getElementById('editor-program-links-list');
-  if (editorProgramLinksList) {
-    editorProgramLinksList.innerHTML = ''; // Clear previous items
-    const progLinks = profile.programLinks || [];
-    progLinks.forEach(link => {
-      appendLinkEditCard(editorProgramLinksList, link);
-    });
-  }
 }
 
 /**
