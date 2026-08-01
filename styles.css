@@ -494,6 +494,7 @@ html, body {
   color: var(--text-secondary);
   max-width: 320px;
   transition: color var(--transition-slow);
+  white-space: pre-line;
 }
 
 /* Links List Section */

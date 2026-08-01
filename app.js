@@ -86,7 +86,7 @@ function showToast(toastElement, message) {
 const DEFAULT_PROFILE = {
   name: "KNU_HCC",
   tagline: "경북대학교 인문카운슬링센터",
-  description: "인문학을 기반으로 다양한 프로그램을 진행합니다.",
+  description: "인문학을 기반으로 다양한 프로그램을 진행합니다.\n아래 링크로 신청해 주세요.",
   theme: "light",
   password: "6122",
   links: [
@@ -101,18 +101,6 @@ const DEFAULT_PROFILE = {
     {
       title: "수요일 밤, 낭독으로 지혜를 사유하다",
       url: "https://incacenter.knu.ac.kr/"
-    },
-    {
-      title: "센터가 궁금하다면? 홈페이지로",
-      url: "https://incacenter.knu.ac.kr/"
-    },
-    {
-      title: "궁금한 건 바로 문의! 카카오채널",
-      url: "http://pf.kakao.com/_vdxjZG/chat"
-    },
-    {
-      title: "인스타 둘러보기",
-      url: "https://instagram.com/knu_hcc"
     }
   ],
   socialLinks: {
@@ -324,7 +312,7 @@ function initProfilePage() {
  * Get profile data from localStorage or save default
  */
 function getProfileData() {
-  const data = localStorage.getItem('profileData_v9');
+  const data = localStorage.getItem('profileData_v10');
   if (data) {
     try {
       return JSON.parse(data);
@@ -340,7 +328,7 @@ function getProfileData() {
  * Save profile data to localStorage
  */
 function saveProfileData(profile) {
-  localStorage.setItem('profileData_v9', JSON.stringify(profile));
+  localStorage.setItem('profileData_v10', JSON.stringify(profile));
 }
 
 /**
