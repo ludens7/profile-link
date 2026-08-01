@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>김코딩 | 링크트리 프로필</title>
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="프론트엔드 개발자 김코딩의 포트폴리오, 깃허브, 블로그 및 다양한 프로젝트 관련 소셜 링크 컬렉션입니다.">
+  <meta name="keywords" content="김코딩, 프론트엔드, 개발자, 포트폴리오, 깃허브, 블로그, 링크트리, 프로필">
+  <meta name="author" content="김코딩">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="김코딩 | 링크트리 프로필">
+  <meta property="og:description" content="프론트엔드 개발자 김코딩의 소셜 채널 및 포트폴리오 링크를 확인하세요.">
+  <meta property="og:image" content="./avatar.png">
+  <meta property="og:url" content="">
+  
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:title" content="김코딩 | 링크트리 프로필">
+  <meta property="twitter:description" content="프론트엔드 개발자 김코딩의 소셜 채널 및 포트폴리오 링크를 확인하세요.">
+  <meta property="twitter:image" content="./avatar.png">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Style Sheet -->
+  <link rel="stylesheet" href="./styles.css">
+  
+  <!-- JS Script (deferred for loading performance) -->
+  <script src="./app.js" defer></script>
+</head>
+<body>
+  <!-- Dynamic Gradient Mesh Background -->
+  <div class="mesh-bg" aria-hidden="true">
+    <div class="mesh-ball ball-1"></div>
+    <div class="mesh-ball ball-2"></div>
+    <div class="mesh-ball ball-3"></div>
+  </div>
+
+  <!-- Main Container -->
+  <main class="profile-container">
+    <article class="profile-card">
+      
+      <!-- Top Action Buttons (Settings, Share) -->
+      <div class="card-actions">
+        <div></div> <!-- Spacing alignment spacer -->
+        <div class="card-actions-right">
+          <button id="settings-btn" class="action-btn" aria-label="설정 관리">
+            <!-- Gear Icon -->
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="3"></circle>
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+            </svg>
+          </button>
+          
+          <button id="share-btn" class="action-btn" aria-label="프로필 공유하기">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="18" cy="5" r="3"></circle>
+              <circle cx="6" cy="12" r="3"></circle>
+              <circle cx="18" cy="19" r="3"></circle>
+              <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+              <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Profile Info -->
+      <header class="profile-header">
+        <div class="avatar-wrapper">
+          <img src="./avatar.png" alt="KNU_HCC 프로필 이미지" class="profile-avatar" id="profile-avatar-img">
+          <div class="avatar-glow"></div>
+        </div>
+        <h1 class="profile-name" id="profile-name">KNU_HCC</h1>
+        <p class="profile-tagline" id="profile-tagline">경북대학교 인문카운슬링센터</p>
+        <p class="profile-description" id="profile-description">
+          인문학을 기반으로 다양한 프로그램을 진행합니다.
+        </p>
+      </header>
+
+      <!-- Links List Section (Dynamic Render) -->
+      <section class="links-section" id="links-container">
+        <h2 class="sr-only">공식 링크 목록</h2>
+        <!-- JavaScript will dynamically fill items here -->
+      </section>
+
+      <!-- Footer & Social Media Rows -->
+      <footer class="profile-footer">
+        <div class="social-links">
+          <a href="#" target="_blank" rel="noopener noreferrer" class="social-item" id="social-instagram" aria-label="인스타그램">
+            <svg class="social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+            </svg>
+          </a>
+          
+          <a href="#" target="_blank" rel="noopener noreferrer" class="social-item" id="social-homepage" aria-label="홈페이지">
+            <svg class="social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="2" y1="12" x2="22" y2="12"></line>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+            </svg>
+          </a>
+
+          <a href="#" target="_blank" rel="noopener noreferrer" class="social-item" id="social-kakaotalk" aria-label="카카오톡 채널">
+            <svg class="social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+            </svg>
+          </a>
+        </div>
+        <p class="copyright">&copy; 2026 knu_hcc. All rights reserved.</p>
+      </footer>
+
+    </article>
+  </main>
+
+  <!-- Settings Configuration Modal -->
+  <div id="settings-modal" class="modal-overlay" aria-hidden="true">
+    <div class="modal-box" role="dialog" aria-labelledby="modal-title">
+      
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h2 id="modal-title" class="modal-title-text">설정 관리</h2>
+        <button id="modal-close-btn" class="modal-close-btn" aria-label="닫기">&times;</button>
+      </div>
+
+      <!-- View 1: Password Authentication -->
+      <div id="modal-auth-view" class="modal-body-view">
+        <p class="modal-description-text">수정을 계속하려면 비밀번호를 입력해 주세요.</p>
+        <div class="form-group">
+          <label for="auth-password" class="form-label">비밀번호</label>
+          <input type="password" id="auth-password" class="form-input" placeholder="비밀번호 입력" required>
+          <div id="auth-error-msg" class="form-error-msg">비밀번호가 올바르지 않습니다.</div>
+        </div>
+        <div class="modal-actions-single">
+          <button type="button" id="auth-submit-btn" class="btn btn-primary">인증하기</button>
+        </div>
+      </div>
+
+      <!-- View 2: Profile & Links Editor -->
+      <div id="modal-editor-view" class="modal-body-view" style="display: none;">
+        <form id="profile-editor-form" class="editor-form">
+          
+          <!-- Basic Info -->
+          <div class="form-section-title">기본 프로필 정보</div>
+          
+          <div class="form-group">
+            <label for="edit-name" class="form-label">이름</label>
+            <input type="text" id="edit-name" class="form-input" required>
+          </div>
+
+          <div class="form-group">
+            <label for="edit-tagline" class="form-label">태그라인 (직무)</label>
+            <input type="text" id="edit-tagline" class="form-input" required>
+          </div>
+
+          <div class="form-group">
+            <label for="edit-description" class="form-label">자기소개</label>
+            <textarea id="edit-description" class="form-input text-area" rows="3" required></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="edit-theme" class="form-label">테마 스타일</label>
+            <select id="edit-theme" class="form-input" style="cursor: pointer;">
+              <option value="dark">Glass Dark (기본 어두운 글래스)</option>
+              <option value="light">Glass Light (밝은 글래스)</option>
+              <option value="royal">Royal Navy (로열 네이비)</option>
+              <option value="sunset">Sunset Amber (선셋 그라디언트)</option>
+              <option value="forest">Forest Green (포레스트 그린)</option>
+              <option value="lavender">Pastel Lilac (파스텔 라일락)</option>
+            </select>
+          </div>
+
+          <!-- Links Editor -->
+          <div class="form-section-header">
+            <span class="form-section-title">기본 링크 관리</span>
+            <button type="button" id="add-link-btn" class="btn-text-action">+ 새 링크 추가</button>
+          </div>
+
+          <div id="editor-links-list" class="editor-links-list">
+            <!-- Dynamic Link Edit Cards -->
+          </div>
+
+          <!-- Program Links Editor -->
+          <div class="form-section-header" style="margin-top: 24px;">
+            <span class="form-section-title">진행중인 프로그램 링크 관리</span>
+            <button type="button" id="add-program-link-btn" class="btn-text-action">+ 새 프로그램 추가</button>
+          </div>
+
+          <div id="editor-program-links-list" class="editor-links-list">
+            <!-- Dynamic Program Link Edit Cards -->
+          </div>
+
+          <!-- Social Links Editor -->
+          <div class="form-section-title">하단 소셜 아이콘 링크</div>
+          
+          <div class="form-group">
+            <label for="edit-instagram" class="form-label">인스타그램 URL</label>
+            <input type="text" id="edit-instagram" class="form-input" placeholder="https://instagram.com/...">
+          </div>
+
+          <div class="form-group">
+            <label for="edit-homepage" class="form-label">홈페이지 URL</label>
+            <input type="text" id="edit-homepage" class="form-input" placeholder="https://...">
+          </div>
+
+          <div class="form-group">
+            <label for="edit-kakaotalk" class="form-label">카카오톡 채널 URL</label>
+            <input type="text" id="edit-kakaotalk" class="form-input" placeholder="https://pf.kakao.com/...">
+          </div>
+
+          <!-- Password Change -->
+          <div class="form-section-title">비밀번호 변경</div>
+          
+          <div class="form-row">
+            <div class="form-group col">
+              <label for="new-password" class="form-label">새 비밀번호</label>
+              <input type="password" id="new-password" class="form-input" placeholder="변경할 비밀번호">
+            </div>
+            <div class="form-group col">
+              <label for="confirm-new-password" class="form-label">비밀번호 확인</label>
+              <input type="password" id="confirm-new-password" class="form-input" placeholder="한 번 더 입력">
+            </div>
+          </div>
+          <div id="password-change-error" class="form-error-msg">입력하신 새 비밀번호가 일치하지 않습니다.</div>
+
+          <div style="margin-top: 24px; text-align: center;">
+            <button type="button" id="export-json-btn" class="btn-text-action" style="font-size: 12px; opacity: 0.8;">
+              ⚙️ 현재 설정을 기본값 코드(JSON)로 복사하기
+            </button>
+          </div>
+
+          <!-- Form Buttons -->
+          <div class="modal-actions">
+            <button type="button" id="editor-cancel-btn" class="btn btn-secondary">취소</button>
+            <button type="submit" class="btn btn-primary">저장하기</button>
+          </div>
+
+        </form>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="toast" role="alert" aria-live="assertive" aria-hidden="true">
+    링크가 클립보드에 복사되었습니다!
+  </div>
+</body>
+</html>
