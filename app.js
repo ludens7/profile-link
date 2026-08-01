@@ -448,9 +448,8 @@ function renderLinks(profile, listKey) {
     const linkAnchor = document.createElement('a');
     linkAnchor.href = link.url;
     
-    // Only open in new tab if it's not a view switch link
+    // Open in the same window so smartphone Back button returns to the first screen
     if (link.url !== '#programs') {
-      linkAnchor.target = '_blank';
       linkAnchor.rel = 'noopener noreferrer';
     }
     
